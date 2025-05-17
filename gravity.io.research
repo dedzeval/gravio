@@ -1,0 +1,180 @@
+gravity.io journey:
+1. prompt :::::::::::::: Grok3 Think
+create a prompt to write python 2D game of gravity where player controls small celestial body by ejecting it's mass in one direction. There should be a few more massive planets or starts to orbit around and there should be a "food" scattered around to re-fill player's body mass, use different colors for different components.
+############ result ##########
+Prompt: Create a 2D Gravity-Based Game in Python
+You are tasked with developing a 2D game using Python, specifically with the Pygame library, where the player controls a small celestial body in a space environment influenced by gravity. The player can eject mass in one direction to propel themselves in the opposite direction, navigating around larger planets or stars that exert gravitational forces. Additionally, there are "food" items scattered throughout the game area that the player can collect to increase their mass. The game should use different colors to represent the player, planets/stars, and food items.
+Core Game Mechanics
+Player Control:
+The player controls a small celestial body with a certain mass.
+
+By ejecting a portion of its mass in a specific direction, the player can change its velocity and direction due to the conservation of momentum.
+
+Ejecting mass reduces the player's total mass, so the player must manage their mass carefully.
+
+Gravity:
+Include a few larger planets or stars in the game that exert gravitational forces on the player and other objects (like food).
+
+The gravitational force should be calculated using Newton's law of universal gravitation:  
+F=G⋅m1⋅m2r2F = G \cdot \frac{m_1 \cdot m_2}{r^2}F = G \cdot \frac{m_1 \cdot m_2}{r^2}
+where ( G ) is the gravitational constant, m1m_1m_1
+ and m2m_2m_2
+ are the masses of the two objects, and ( r ) is the distance between their centers.
+
+For simplicity, assume that only the planets/stars exert significant gravity, while the player and food items do not affect each other gravitationally.
+
+Mass and Ejection:
+The player starts with an initial mass and can eject small amounts of mass to propel themselves.
+
+Each ejection reduces the player's mass, and the player cannot eject mass if their mass falls below a certain threshold.
+
+The direction of ejection should be controlled by the player, possibly using keyboard inputs (e.g., arrow keys) or mouse inputs.
+
+Food Items:
+Food items are scattered around the game area and have their own small masses.
+
+When the player collides with a food item, the player's mass increases by the mass of the food item, and the food item is removed or respawned elsewhere.
+
+Food items are also affected by the gravity of the planets/stars.
+
+Visual Representation:
+Use different colors to distinguish game components:
+Player: Blue
+
+Planets/Stars: Red
+
+Food Items: Green
+
+Background: Black or a space-themed background
+
+Technical Requirements
+Library: Use Pygame for rendering, input handling, and game loop management.
+
+Physics:
+Implement a simple gravity simulation where only the planets/stars exert gravitational forces on the player and food items.
+
+Update the positions and velocities of the player and food items based on the gravitational forces and any ejections performed by the player.
+
+Object Representation:
+Create a base class CelestialBody with properties like position, velocity, mass, and color.
+
+Subclass Player, Planet, and Food from CelestialBody, each with specific behaviors:
+Player: Can eject mass to move.
+
+Planet: Exerts gravity but does not move.
+
+Food: Affected by gravity and can be collected by the player.
+
+Collision Detection:
+Detect when the player collides with food items to increase the player's mass.
+
+Optionally, handle collisions with planets/stars (e.g., game over or bounce off).
+
+User Interface:
+Display the player's current mass.
+
+Optionally, show a score based on mass collected or time survived.
+
+Provide instructions on how to control the player.
+
+Game Structure
+Game Loop:
+Handle player input for ejecting mass.
+
+Update the positions of all movable objects (player and food) based on gravitational forces and player actions.
+
+Check for collisions between the player and food items.
+
+Render all game components on the screen.
+
+Gravity Calculation:
+For each movable object (player and food), calculate the gravitational force exerted by each planet/star.
+
+Update the velocity of each movable object based on the net gravitational force acting on it.
+
+Player Ejection Mechanic:
+When the player chooses to eject mass, reduce the player's mass by a small amount.
+
+Create a small "ejected mass" object that moves in the specified direction with a certain velocity.
+
+Apply an equal and opposite velocity change to the player to simulate propulsion.
+
+Food Collection:
+When the player collides with a food item, add the food's mass to the player's mass and remove or respawn the food item.
+
+Optional Features
+Introduce multiple planets or stars with different masses and positions to create interesting gravitational fields.
+
+Add moving obstacles or enemies that the player must avoid.
+
+Implement a scoring system based on the amount of mass collected or the time survived.
+
+Allow the player to grow in size as their mass increases, making them more visible but potentially harder to maneuver.
+
+Add sound effects or background music to enhance the gaming experience.
+
+Summary
+Your task is to create a 2D gravity-based game in Python using Pygame, where the player controls a small celestial body by ejecting mass to navigate through space. The game should feature a few larger planets or stars that exert gravitational forces, food items scattered around to collect for mass replenishment, and distinct colors for each component (blue for the player, red for planets/stars, green for food). Implement the core mechanics of gravity, mass ejection, and collision detection to create an engaging and challenging gameplay experience.
+
+Use clear modular code with OOP approach, split logic into few classes/modules, write tests for every method.
+
+##################### 1st iteration ######################
+
+https://bitbucket.org/arthem77/gravity.io/commits/77303e77f3c8ab352e91611c0ae07a131aaa4440
+########################################################## Grok3 Think
+rework program, add initial velocity to player and planets,
+both planets should rotate abound common gravity center,
+all other objects - player and food should have orbits non-crossing planets 
+also make screen edges adjacent, i.e. if object reaches top 
+edge - it appears on the bottom and respectfully left/right edges
+
+---------- manual changes ------------
+gane board size 800x600 => 1000x750
+
+##################### 2nd iteration ######################
+
+https://bitbucket.org/arthem77/gravity.io/commits/ba888d72952c16115e2832c023e5326c855a73e9
+
+prompt::::::::::: Grok3 Think
+correct planets initial position so their center mass is in the middle of the screen,
+change screen initial width/hight 800x600 -> 1000x750,
+make all food orbits to rotate around one of the planets, return single output = program code
+
+##################### 3rd iteration ######################
+https://bitbucket.org/arthem77/gravity.io/commits/c27accfd0cd58444c11535f34c6bae5952dc8c42
+
+
+prompt::::::::::: Grok3 Think
+rework planets movement, make it fixed rotation around gravity center, 
+make food bounce off the planet surface (counting planet radius), add "pull zone" around the player = 8 pauer raduis, 
+visualize pull zone with circle, food in pull zone should be attracted to the player and consumed at zero distance.
+
+grok summarized all changes, I asked to apply them
+
+##################### 4th iteration ######################
+https://bitbucket.org/arthem77/gravity.io/commits/71f61db746d2eb2f1b3b9f23a5417931426b80cc
+
+prompt::::::::::: Grok3 Think
+Fix script so once food reaches pull zone it starts to move to the player and is consumed and 0 distance.
+Increase food amount 20x
+##################### 5th iteration ######################
+https://bitbucket.org/arthem77/gravity.io/commits/c97500a64a49dbb25fb1394da14d6ec1212c449f
+
+prompt::::::::::: Grok3 Think
+Update script so player has random initial velocity, player's thrust should be 5x times more powerful 
+( let's increase ejected speed for that).
+Show player speed on the screen alond with the mass. Once player eject 1 mass it becomes a food.
+make sure ejected mass is not attracted back until it leave pull zone. Provide full script as a result.
+
+##################### 6th iteration ######################
+https://bitbucket.org/arthem77/gravity.io/commits/8262203c01cc0bd56a458f6786b030d2465a32b2
+
+prompt::::::::::: Grok3 Think
+decrease ejected mass speed to 25, change script so once food in a pull zone the gravity of player is 500x stronger within 5 pull radii
+##################### 7th iteration ######################
+https://bitbucket.org/arthem77/gravity.io/commits/6b6fe7a47241a5a1697e404202685f1d2ea327f8
+
+prompt::::::::::: Grok3 Think
+make food loose 1% of speed within pull zone for each tick
+also limit max food speed to be 100
+
